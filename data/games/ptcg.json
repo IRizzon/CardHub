@@ -1,5 +1,58 @@
-[
-    "Base Set",
-    "Jungle",
-    "Fossil"
-]
+{
+    "editions": [
+        {
+            "id": "base1",
+            "name": "Base Set"
+        },
+        {
+            "id": "swsh1",
+            "name": "Sword & Shield"
+        },
+        {
+            "id": "sv1",
+            "name": "Scarlet & Violet"
+        },
+        {
+            "id": "30c",
+            "name": "30th Celebration"
+        },
+        {
+            "id": "cri",
+            "name": "Chaos Rising"
+        }
+    ],
+    "rarities": [
+        {
+            "id": "C",
+            "name": "Comum"
+        },
+        {
+            "id": "U",
+            "name": "Incomum"
+        },
+        {
+            "id": "R",
+            "name": "Rara"
+        },
+        {
+            "id": "RR",
+            "name": "Dupla Rara"
+        },
+        {
+            "id": "UR",
+            "name": "Ultra Rara"
+        },
+        {
+            "id": "IR",
+            "name": "Ilustração Rara"
+        },
+        {
+            "id": "SIR",
+            "name": "Ilustração Rara Especial"
+        },
+        {
+            "id": "HR",
+            "name": "Hiper Rara"
+        }
+    ]
+}

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CardHub - Login</title>
+</head>
+<body>
+
+    <main>
+<!---------------------------------------------->
+            <!-- ==> Login <== -->
+        <section id="loginSection">
+
+            <h1>CardHub</h1>
+            <h2>Login</h2>
+
+            <form id="loginForm">
+                <div>
+                    <label for="username">Usuário</label>
+
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username"
+                        required
+                    >
+                </div>
+                <div>
+                    <label for="password">Senha</label>
+
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password"
+                        required
+                    >
+                </div>
+
+                <button type="submit">
+                    Entrar
+                </button>
+            </form>
+
+            <p id="message"></p>
+        </section>
+<!---------------------------------------------->
+            <!-- ==> Dashboard <== -->
+        <section id="dashboardSection">
+
+            <h1>CardHub</h1>
+            <p>Área administrativa</p>
+
+            <button id="logoutButton">
+                Sair
+            </button>
+<!---------------------------------------------->
+            <!-- ==> GameSelector <== -->
+            <div id="gameSelector">
+
+                <button type="button" data-game="mtg">
+                    Magic: The Gathering
+                </button>
+
+                <button type="button" data-game="ptcg">
+                    Pokémon
+                </button>
+
+                <button type="button" data-game="ygo">
+                    Yu-Gi-Oh!
+                </button>
+
+            </div>
+<!---------------------------------------------->
+            <!-- ==> EditionSelector <== -->
+            <div id="catalogFilters">
+
+                <label for="catalogEdition">
+                    Edição
+                </label>
+
+                <select id="catalogEdition" disabled>
+
+                    <option value="">
+                        Selecione primeiro um jogo
+                    </option>
+
+                </select>
+
+            </div>
+<!---------------------------------------------->
+            <!-- ==> CardInsert <== -->
+            <div id="cardActions">
+                <button type="button" id="addCardButton">
+                    Adicionar Carta
+                </button>
+
+            </div>
+<!---------------------------------------------->
+            <!-- ==> CardEdit <== -->
+            <div id="editCardForm">
+            <!-- Começo do Modal -->
+            <div>
+
+                <button type="button" id="closeEditButton">
+                    X
+                </button>
+
+                <h2>Editar Carta</h2>
+
+                <form id="cardEditForm">
+
+                    <input type="hidden" id="editCardId">
+
+                    <div>
+                        <label for="editNameEn">Nome em Inglês</label>
+                        <input type="text" id="editNameEn" required>
+                    </div>
+
+                    <div>
+                        <label for="editNamePt">Nome em Português</label>
+                        <input type="text" id="editNamePt">
+                    </div>
+
+                    <div>
+                        <label for="editGame">Jogo</label>
+                        <select id="editGame" required>
+                            <option value="">
+                                Selecione um jogo
+                            </option>
+
+                            <option value="mtg">
+                                Magic: The Gathering
+                            </option>
+
+                            <option value="ptcg">
+                                Pokémon
+                            </option>
+
+                            <option value="ygo">
+                                Yu-Gi-Oh!
+                            </option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="editEdition">Edição</label>
+                        <select id="editEdition" required disabled>
+                            <option value="">
+                                Selecione primeiro um jogo
+                            </option>
+                        </select>
+
+                        <span id="editionId"></span>
+                    </div>
+
+                    <div>
+                        <label for="editImage">Imagem</label>
+                        <input type="text" id="editImage">
+                    </div>
+
+                    <div>
+                        <label for="editRarity">Raridade</label>
+                        <select id="editRarity" required disabled>
+                            <option value="">Selecione primeiro um jogo</option>
+                        </select>
+                    </div>
+
+                    <button type="submit">
+                        Salvar alterações
+                    </button>
+
+                    <button type="button" id="cancelEditButton">
+                        Cancelar
+                    </button>
+
+                </form>
+            </div>
+            <!-- Fim do Modal -->
+            </div>
+
+            <h2>Cartas</h2>
+
+            <div id="cardsList">
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>

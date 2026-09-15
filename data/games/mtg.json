@@ -1,1 +1,42 @@
-["Alpha","Beta","Unlimited"]
+{
+    "editions": [
+        {
+            "id": "dom",
+            "name": "Dominaria"
+        },
+        {
+            "id": "war",
+            "name": "War of the Spark"
+        },
+        {
+            "id": "eld",
+            "name": "Throne of Eldraine"
+        },
+        {
+            "id": "hob",
+            "name": "The Hobbit"
+        },
+        {
+            "id": "msh",
+            "name": "Marvel Super Heroes"
+        }
+    ],
+    "rarities": [
+        {
+            "id": "C",
+            "name": "Comum"
+        },
+        {
+            "id": "U",
+            "name": "Incomum"
+        },
+        {
+            "id": "R",
+            "name": "Rara"
+        },
+        {
+            "id": "M",
+            "name": "Mítica Rara"
+        }
+    ]
+}

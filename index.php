@@ -61,9 +61,9 @@ elseif ($method === 'POST' && $uri === '/api/cards') {
         exit;
     } 
 
-    $file = "data/games/{$data['game']}.json";
+    $gameFile = __DIR__ . "/data/games/{$data['game']}.json";
 
-    if (!file_exists($file)) {
+    if (!file_exists($gameFile)) {
         http_response_code(400);
 
         echo json_encode([
@@ -73,13 +73,47 @@ elseif ($method === 'POST' && $uri === '/api/cards') {
         exit;
     }
 
-    $editions = json_decode(file_get_contents($file), true);
+    // ==> Validar Edição
+    $gameData = json_decode(file_get_contents($gameFile), true);
+    $editionExists = false;
 
-    if (!in_array($data['edition'], $editions)) {
+    foreach ($gameData['editions'] as $edition) {
+
+        if ($edition['id'] === $data['edition']) {
+            $editionExists = true;
+
+            break;
+        }
+    }
+
+    if (!$editionExists) {
         http_response_code(400);
 
         echo json_encode([
             'message' => "O jogo não possui essa edição"
+        ]);
+
+        exit;
+    }
+
+    // ==> Validar Raridade
+    $rarityExists = false;
+
+    foreach ($gameData['rarities'] as $rarity) {
+
+        if ($rarity['id'] === $data['rarity']) {
+
+            $rarityExists = true;
+            break;
+        }
+    }
+
+    if (!$rarityExists) {
+
+        http_response_code(400);
+
+        echo json_encode([
+            'message' => 'O jogo não possui essa raridade'
         ]);
 
         exit;
@@ -111,7 +145,6 @@ elseif ($method === 'PUT' && preg_match('#^/api/cards/(\d+)$#', $uri, $matches))
     }
 
     $id = $matches[1];
-
     $data = json_decode(file_get_contents('php://input'), true);
 
     if (!$data) {
@@ -146,9 +179,19 @@ elseif ($method === 'PUT' && preg_match('#^/api/cards/(\d+)$#', $uri, $matches))
         exit;
     }
 
-    $editions = json_decode(file_get_contents($gameFile), true);
+    // ==> Validar Edição
+    $gameData = json_decode(file_get_contents($gameFile), true);
+    $editionExists = false;
 
-    if (!in_array($data['edition'], $editions)) {
+    foreach ($gameData['editions'] as $edition) {
+        if ($edition['id'] === $data['edition']) {
+            $editionExists = true;
+
+            break;
+        }
+    }
+
+    if (!$editionExists) {
         http_response_code(400);
 
         echo json_encode([
@@ -158,6 +201,28 @@ elseif ($method === 'PUT' && preg_match('#^/api/cards/(\d+)$#', $uri, $matches))
         exit;
     }
 
+    // ==> Validar Raridade
+    $rarityExists = false;
+
+    foreach ($gameData['rarities'] as $rarity) {
+
+        if ($rarity['id'] === $data['rarity']) {
+            $rarityExists = true;
+
+            break;
+        }
+    }
+
+    if (!$rarityExists) {
+        http_response_code(400);
+
+        echo json_encode([
+            'message' => 'O jogo não possui essa raridade'
+        ]);
+
+        exit;
+    }
+    
     $cardController = new CardController($pdo);
     $updated = $cardController->update($id, $data);
 
@@ -165,7 +230,7 @@ elseif ($method === 'PUT' && preg_match('#^/api/cards/(\d+)$#', $uri, $matches))
         http_response_code(404);
 
         echo json_encode([
-            'message' => 'Carta não econtrada'
+            'message' => 'Carta não encontrada'
         ]);
 
         exit;
@@ -288,7 +353,7 @@ elseif ($method === 'POST' && $uri === '/api/register') {
     ]);
 }
 
-// ==> GET /api/{game}/editions <== \\ (Game/GameController)
+// ==> GET /api/{game}/editions <== \\ (GameController)
 
 elseif ($method === 'GET' && preg_match('#^/api/([a-z]+)/editions$#', $uri, $matches)) {
 
@@ -313,6 +378,30 @@ elseif ($method === 'GET' && preg_match('#^/api/([a-z]+)/editions$#', $uri, $mat
     ]);
 }
 
+// ==> GET /api/{game}/rarities <== (GameController)
+
+elseif ($method === 'GET' && preg_match('#^/api/([a-z]+)/rarities$#', $uri, $matches)) {
+
+    $game = $matches[1];
+
+    $gameController = new GameController();
+    $rarities = $gameController->getRarities($game);
+
+    if ($rarities === false) {
+        http_response_code(404);
+
+        echo json_encode([
+            'message' => 'Jogo não encontrado'
+        ]);
+
+        exit;
+    }
+
+    echo json_encode([
+        'game' => $game,
+        'rarities' => $rarities
+    ]);
+}
 
 // ==> ROTA NÃO ENCONTRADA <== \\
 

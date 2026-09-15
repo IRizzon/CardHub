@@ -1,5 +1,58 @@
-[
-    "Legend of Blue-Eyes White Dragon",
-    "Metal Raiders",
-    "Spell Ruler"
-]
+{
+    "editions": [
+        {
+            "id": "lob",
+            "name": "Legend of Blue Eyes White Dragon"
+        },
+        {
+            "id": "mrd",
+            "name": "Metal Raiders"
+        },
+        {
+            "id": "sdy",
+            "name": "Starter Deck: Yugi"
+        },
+        {
+            "id": "rotd",
+            "name": "Rise of the Duelist"
+        },
+        {
+            "id": "blzd",
+            "name": "Blazing Dominion"
+        }
+    ],
+    "rarities": [
+        {
+            "id": "common",
+            "name": "Common"
+        },
+        {
+            "id": "rare",
+            "name": "Rare"
+        },
+        {
+            "id": "super-rare",
+            "name": "Super Rare"
+        },
+        {
+            "id": "ultra-rare",
+            "name": "Ultra Rare"
+        },
+        {
+            "id": "secret-rare",
+            "name": "Secret Rare"
+        },
+        {
+            "id": "ultimate-rare",
+            "name": "Ultimate Rare"
+        },
+        {
+            "id": "collectors-rare",
+            "name": "Collector's Rare"
+        },
+        {
+            "id": "starlight-qcsr",
+            "name": "Starlight/Quarter Century Secret Rare"
+        }
+    ]
+}
