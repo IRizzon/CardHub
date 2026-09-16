@@ -1,0 +1,545 @@
+* {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F2F2F2;
+    color: #222;
+}
+
+/* ==> Header <== */
+#dashboardHeader{
+    width: 100%;
+    padding: 5px 20px;
+
+    background-color: #F2F2F2;
+    border-bottom: 4px solid #000000;
+    box-shadow: 0px 2px 9px 5px #00000030;
+
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+}
+
+#dashboardHeader img{
+    height: 80px;
+
+    grid-column: 2;
+    justify-self: center;
+
+    object-fit: contain;
+}
+
+#logoutButton{
+    margin-right: 20px;
+    border: none;
+    color: #000000;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    grid-column: 3;
+    justify-self: end;
+}
+
+
+/* ==> Game Selector <== */
+#gameSelector {
+    width: 100%;
+    padding: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#gameSelector button {
+    width: 300px;
+    height: 150px;
+    padding: 0;
+
+    border-radius: 10px;
+    background-color: #000000;
+    border: none;
+    box-shadow: 0px 0px 9px 3px #00000030;
+
+    cursor: pointer;
+
+    position: relative;
+    overflow: hidden;
+}
+
+#gameSelector .gameImage {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+}
+
+#gameSelector .gameImage img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: top;
+}
+
+#gameSelector .gameImage::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(
+        to top,
+        #000000ee 0%,
+        #00000060 75%,
+        #00000015 100%
+    );
+
+    transition: opacity 0.3s ease;
+}
+
+#gameSelector button span {
+    position: absolute;
+
+    left: 0;
+    bottom: 15px;
+
+    width: 100%;
+
+    padding: 0 10px;
+
+    color: #ffffff;
+    text-shadow: 1px 0px 5px #000000;
+
+    font-size: 25px;
+    font-weight: bolder;
+    text-align: center;
+
+
+    z-index: 2;
+}
+
+#gameSelector button:hover .gameImage::after {
+    opacity: 0;
+}
+
+#gameSelector button.selected .gameImage::after {
+    opacity: 0;
+}
+
+/* ==> Catalog <== */
+#catalogFilters {
+    width: 80%;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#cardActions {
+    margin-left: auto;
+}
+
+#addCardButton {
+    padding: 10px 20px;
+
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0px 0px 9px 3px #00000015;
+
+    background-color: #535353;
+    color: #ffffff;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+#addCardButton .addIcon {
+    display: none;
+}
+
+#catalogControls {
+    width: 100%;
+    padding: 10px 30px;
+
+    display: flex;
+    align-items: center;
+}
+
+#catalogFilters > label{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#catalogEdition {
+    width: 60%;
+
+    padding: 10px;
+
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0px 0px 9px 3px #00000030;
+
+    background-color: #ffffff;
+
+    font-size: 20px;
+}
+
+/* ==> Card List <== */
+#cardsList {
+    width: 100%;
+    padding: 0 30px 30px;
+}
+
+.rarityBlock {
+    width: 100%;
+    margin-top: 25px;
+}
+
+.rarityBlock h3 {
+    position: relative;
+
+    width: fit-content;
+
+    margin: 0 auto 25px;
+    padding: 0 30px 8px;
+
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.rarityBlock h3::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 12px;
+
+    background: linear-gradient(
+        to bottom,
+        #00000025 0%,
+        #00000010 35%,
+        transparent 100%
+    );
+
+    clip-path: polygon(
+        0% 0%,
+        100% 0%,
+        70% 100%,
+        30% 100%
+    );
+}
+
+.rarityCards {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+/* ==> Card <== */
+#cardsList .card {
+    width: 100%;
+    min-width: 0;
+
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px 2px #00000020;
+
+    overflow: hidden;
+
+    cursor: pointer;
+}
+
+#cardsList .cardImage {
+    position: relative;
+
+    width: 100%;
+    aspect-ratio: 2 / 3;
+
+    overflow: hidden;
+
+    border-radius: 10px;
+}
+
+#cardsList .cardImage img {
+    width: 100%;
+    height: 100%;
+
+    background-color: #777777;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition: transform 0.2s ease;
+}
+
+#cardsList .cardImage:hover img {
+    transform: scale(1.03);
+}
+
+#cardsList .cardInfo {
+    padding: 10px;
+}
+
+#cardsList .cardInfo h4 {
+    margin-bottom: 2px;
+
+    font-size: 16px;
+    text-align: center;
+}
+
+#cardsList .cardInfo p {
+    font-size: 14px;
+    color: #555555;
+    text-align: center;
+}
+
+/* ==> Card Overlay <== */
+#cardsList .cardOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: #00000060;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+
+    cursor: pointer;
+}
+
+#cardsList .cardImage:hover .cardOverlay {
+    opacity: 0.8;
+}
+
+#cardsList .cardOverlay::after {
+    content: "Editar Carta";
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 100%;
+
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px #000000;
+    text-align: center;
+}
+
+/* ==> Delete <== */
+#cardsList .cardOverlay button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    width: 30px;
+    height: 30px;
+
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    background-color: #ff000090;
+
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+/* ----------------------------------------------------*/
+/* ==> Responsividade - Tablet <== */
+@media (max-width: 768px) {
+
+    /* ==> Header - Tablet <== */
+    #dashboardHeader {
+        padding: 5px 15px;
+    }
+
+    #dashboardHeader img {
+        height: 70px;
+    }
+
+    #logoutButton {
+        margin-right: 5px;
+        font-size: 18px;
+    }
+
+    /* ==> Game Selector - Tablet <== */
+    #gameSelector {
+        width: 100%;
+        flex-direction: column;
+        padding: 0;
+        gap: 0;
+    }
+
+    #gameSelector button {
+        width: 100%;
+        height: 150px;
+        
+        border-bottom: 3px solid #000000;
+        border-radius: 0;
+    }
+
+    #gameSelector .gameImage img {
+        object-fit: cover;
+        object-position: center 20%; 
+    }
+
+    #gameSelector .gameImage::after {
+        background: #00000090;
+    }
+
+    /* ==> Catalog - Tablet <== */
+    #catalogControls {
+        padding: 10px 25px;
+    }
+
+    #catalogFilters > label {
+        display: none;
+    }
+
+    #catalogFilters {
+        width: 80%;
+    }
+
+    #catalogEdition {
+        width: 100%;
+    }
+
+    #addCardButton {
+        width: 45px;
+        height: 45px;
+        padding: 0;
+        font-size: 30px;
+        line-height: 1;
+    }
+
+    #addCardButton .addText {
+        display: none;
+    }
+
+    #addCardButton .addIcon {
+        display: block;
+    }
+
+    /* ==> Card List - Tablet <== */
+    #cardsList {
+        padding: 0 25px 25px;
+    }
+
+    .rarityCards {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 15px;
+    }
+}
+
+/* ----------------------------------------------------*/
+/* ==> Responsividade - Celular <== */
+@media (max-width: 480px) {
+
+    /* ==> Header - Celular <== */
+    #dashboardHeader {
+        padding: 5px 10px;
+    }
+
+    #dashboardHeader img {
+        height: 60px;
+    }
+
+    #logoutButton {
+        font-size: 16px;
+    }
+
+    /* ==> Game Selector - Celular <== */
+    #gameSelector {
+        padding: 0;
+        gap: 0;
+    }
+
+    #gameSelector button {
+        width: 100%;
+        max-width: none;
+        height: 130px;
+    }
+
+    #gameSelector button span {
+        font-size: 22px;
+    }
+
+    /* ==> Catalog - Celular <== */
+    #catalogControls {
+        padding: 10px 20px;
+    }
+
+    #catalogFilters {
+        width: 100%;
+    }
+
+    #catalogEdition {
+        font-size: 18px;
+    }
+
+    #addCardButton {
+        width: 42px;
+        height: 42px;
+        font-size: 28px;
+    }
+
+    /* ==> Card list - Celular <== */
+    #cardsList {
+        padding: 0 20px 20px;
+    }
+
+    .rarityCards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    #cardsList .cardInfo {
+        padding: 8px;
+    }
+
+    #cardsList .cardInfo h4 {
+        font-size: 14px;
+    }
+
+    #cardsList .cardInfo p {
+        font-size: 12px;
+    }
+
+    .rarityBlock h3 {
+        font-size: 20px;
+    }
+}

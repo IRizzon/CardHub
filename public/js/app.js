@@ -236,6 +236,13 @@ gameButtons.forEach(button => {
 
         selectedEdition = '';
         catalogEdition.value = '';
+
+        gameButtons.forEach(gameButton => {
+            gameButton.classList.remove('selected');
+        });
+        
+        button.classList.add('selected');
+
         document.getElementById('cardsList').innerHTML = `
         <p>Selecione a Edição.</p>
         `;
@@ -330,7 +337,6 @@ cardEditForm.addEventListener('submit', async(e) => {
 
     if (modalMode === 'edit'){
         url = `/api/cards/${id}`;
-
         method = 'PUT';
     }
 
@@ -338,7 +344,6 @@ cardEditForm.addEventListener('submit', async(e) => {
         method: method,
 
         headers: {'Content-Type': 'application/json'},
-
         body: JSON.stringify({
             name_en: name_en,
             name_pt: name_pt,
@@ -426,25 +431,30 @@ async function loadcards() {
             const cardElement = document.createElement('div');
 
             cardElement.innerHTML = `
-                <img src="${card.image}" alt="${card.name_en}">
-                <h4>${card.name_en}</h4>
-                <p>${card.name_pt ?? 'Não informado'}</p>
-                <button type="button" class="edit-${card.id}">
-                    Editar
-                </button>
-                <button type="button" class="delete-${card.id}">
-                    Excluir
-                </button>
+                <div class="cardImage">
+                    <img src="${card.image}" alt="${card.name_en}">
+
+                    <div class="cardOverlay">
+
+                        <button
+                            type="button"
+                            class="delete-${card.id}">
+                            X
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="cardInfo">
+                    <h4>${card.name_en}</h4>
+                    <p>${card.name_pt ?? 'Não informado'}</p>
+                </div>
             `;
 
             // ==> Open Edit(Modal)
-            const editButton = cardElement.querySelector(
-                `.edit-${card.id}`
-            );
-
-            editButton.addEventListener('click', () => {
+            cardElement.addEventListener('click', () => {
                 modalMode = 'edit';
-                
+
                 modalTitle.textContent = 'Editar Carta';
                 modalButton.textContent = 'Salvar alterações';
 
@@ -478,8 +488,12 @@ async function loadcards() {
                 `.delete-${card.id}`
             );
 
-            deleteButton.addEventListener('click', async () => {
-                const response = await fetch( `/api/cards/${card.id}`, { method: 'DELETE'});
+            deleteButton.addEventListener('click', async (e) => {
+                e.stopPropagation();
+
+                const response = await fetch( `/api/cards/${card.id}`, { 
+                        method: 'DELETE'
+                    });
 
                 const data = await response.json();
 

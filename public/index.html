@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="stylesheet" href="css/style.css">
     <title>CardHub - Login</title>
 </head>
 <body>
@@ -49,54 +49,78 @@
 <!---------------------------------------------->
             <!-- ==> Dashboard <== -->
         <section id="dashboardSection">
+            <!-- ==> Header <== -->
+            <header id="dashboardHeader">
 
-            <h1>CardHub</h1>
-            <p>Área administrativa</p>
+                <img src="images/cardhub.jpg" alt="CardHub">
 
-            <button id="logoutButton">
-                Sair
-            </button>
+                <button type="button" id="logoutButton">
+                    Sair
+                </button>
+
+            </header>
 <!---------------------------------------------->
             <!-- ==> GameSelector <== -->
             <div id="gameSelector">
 
                 <button type="button" data-game="mtg">
-                    Magic: The Gathering
+
+                    <div class="gameImage">
+                        <img src="images/mtg.jpg" alt="Magic: The Gathering">
+                    </div>
+
+                    <span>
+                        Magic: The Gathering
+                    </span>
                 </button>
 
                 <button type="button" data-game="ptcg">
-                    Pokémon
+
+                    <div class="gameImage">
+                        <img src="images/ptcg.jpg" alt="Pokémon">
+                    </div>
+
+                    <span>
+                        Pokémon
+                    </span>
                 </button>
 
                 <button type="button" data-game="ygo">
-                    Yu-Gi-Oh!
-                </button>
 
+                    <div class="gameImage">
+                        <img src="images/ygo.jpg" alt="Yu-Gi-Oh!">
+                    </div>
+
+                    <span>
+                        Yu-Gi-Oh!
+                    </span>
+                </button>
             </div>
 <!---------------------------------------------->
             <!-- ==> EditionSelector <== -->
-            <div id="catalogFilters">
+            <div id="catalogControls">
+                <div id="catalogFilters">
 
-                <label for="catalogEdition">
-                    Edição
-                </label>
+                    <label for="catalogEdition">
+                        Edição:
+                    </label>
 
-                <select id="catalogEdition" disabled>
+                    <select id="catalogEdition" disabled>
 
-                    <option value="">
-                        Selecione primeiro um jogo
-                    </option>
+                        <option value="">
+                            Selecione primeiro um jogo
+                        </option>
+                    </select>
+                </div>
 
-                </select>
-
-            </div>
 <!---------------------------------------------->
             <!-- ==> CardInsert <== -->
-            <div id="cardActions">
-                <button type="button" id="addCardButton">
-                    Adicionar Carta
-                </button>
-
+                <div id="cardActions">
+                    <button type="button" id="addCardButton">
+                        <span class="addText">Adicionar Carta</span>
+                        <span class="addIcon">+</span>
+                    </button>
+                </div>
             </div>
 <!---------------------------------------------->
             <!-- ==> CardEdit <== -->
@@ -180,8 +204,6 @@
             </div>
             <!-- Fim do Modal -->
             </div>
-
-            <h2>Cartas</h2>
 
             <div id="cardsList">
             </div>
