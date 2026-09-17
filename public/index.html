@@ -11,15 +11,19 @@
 
     <main>
 <!---------------------------------------------->
-            <!-- ==> Login <== -->
+        <!-- ==> Login <== -->
         <section id="loginSection">
 
             <h1>CardHub</h1>
-            <h2>Login</h2>
+
+            <h2 id="loginTitle">Login</h2>
 
             <form id="loginForm">
+
                 <div>
-                    <label for="username">Usuário</label>
+                    <label for="username">
+                        Usuário
+                    </label>
 
                     <input 
                         type="text" 
@@ -28,8 +32,11 @@
                         required
                     >
                 </div>
+
                 <div>
-                    <label for="password">Senha</label>
+                    <label for="password">
+                        Senha
+                    </label>
 
                     <input 
                         type="password" 
@@ -39,12 +46,18 @@
                     >
                 </div>
 
-                <button type="submit">
+                <button type="submit" id="loginButton">
                     Entrar
                 </button>
+
             </form>
 
             <p id="message"></p>
+
+            <button type="button" id="toggleRegisterButton">
+                Não possui uma conta? Cadastrar
+            </button>
+
         </section>
 <!---------------------------------------------->
             <!-- ==> Dashboard <== -->
@@ -125,84 +138,107 @@
 <!---------------------------------------------->
             <!-- ==> CardEdit <== -->
             <div id="editCardForm">
-            <!-- Começo do Modal -->
-            <div>
 
-                <button type="button" id="closeEditButton">
-                    X
-                </button>
+                <!-- Começo do Modal -->
+                <div class="modalContent">
 
-                <h2>Editar Carta</h2>
-
-                <form id="cardEditForm">
-
-                    <input type="hidden" id="editCardId">
-
-                    <div>
-                        <label for="editNameEn">Nome em Inglês</label>
-                        <input type="text" id="editNameEn" required>
-                    </div>
-
-                    <div>
-                        <label for="editNamePt">Nome em Português</label>
-                        <input type="text" id="editNamePt">
-                    </div>
-
-                    <div>
-                        <label for="editGame">Jogo</label>
-                        <select id="editGame" required>
-                            <option value="">
-                                Selecione um jogo
-                            </option>
-
-                            <option value="mtg">
-                                Magic: The Gathering
-                            </option>
-
-                            <option value="ptcg">
-                                Pokémon
-                            </option>
-
-                            <option value="ygo">
-                                Yu-Gi-Oh!
-                            </option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label for="editEdition">Edição</label>
-                        <select id="editEdition" required disabled>
-                            <option value="">
-                                Selecione primeiro um jogo
-                            </option>
-                        </select>
-
-                        <span id="editionId"></span>
-                    </div>
-
-                    <div>
-                        <label for="editImage">Imagem</label>
-                        <input type="text" id="editImage">
-                    </div>
-
-                    <div>
-                        <label for="editRarity">Raridade</label>
-                        <select id="editRarity" required disabled>
-                            <option value="">Selecione primeiro um jogo</option>
-                        </select>
-                    </div>
-
-                    <button type="submit">
-                        Salvar alterações
+                    <button type="button" id="closeEditButton">
+                        X
                     </button>
 
-                    <button type="button" id="cancelEditButton">
-                        Cancelar
-                    </button>
+                    <h2>Editar Carta</h2>
 
-                </form>
-            </div>
-            <!-- Fim do Modal -->
+                    <form id="cardEditForm">
+
+                        <input type="hidden" id="editCardId">
+
+                        <!-- ==> CardImage -->
+                        <div id="cardImageUpload">
+                            <img id="editImagePreview" src="" alt="Imagem da carta">
+
+                            <input type="file" id="editImage" accept="image/*">
+
+                            <button type="button" id="imageUploadButton">+</button>
+                        </div>
+
+                        <!-- ==> CardData <== -->
+                        <div id="cardFormFields">
+
+                            <div>
+                                <label for="editNameEn">
+                                    Nome em Inglês
+                                </label>
+                                <input type="text" id="editNameEn" required>
+                            </div>
+
+                            <div>
+                                <label for="editNamePt">
+                                    Nome em Português
+                                </label>
+                                <input type="text" id="editNamePt">
+                            </div>
+
+                            <div>
+                                <label for="editGame">
+                                    Jogo
+                                </label>
+                                <select id="editGame" required>
+                                    <option value="">
+                                        Selecione um jogo
+                                    </option>
+                                    <option value="mtg">
+                                        Magic: The Gathering
+                                    </option>
+                                    <option value="ptcg">
+                                        Pokémon
+                                    </option>
+                                    <option value="ygo">
+                                        Yu-Gi-Oh!
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="editEdition">
+                                    Edição
+                                </label>
+                                
+                                <span id="editionId"></span>
+                                <select id="editEdition" required disabled>
+                                    <option value="">
+                                        Selecione primeiro um jogo
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="editRarity">
+                                    Raridade
+                                </label>
+                                <select id="editRarity" required disabled>
+                                    <option value="">
+                                        Selecione primeiro um jogo
+                                    </option>
+                                </select>
+                            </div>
+
+                            <!-- ==> CardActions <== -->
+                            <div id="cardFormActions">
+                                <p id="cardFormMessage"></p>
+
+                                <button type="submit">
+                                    Salvar alterações
+                                </button>
+
+                                <button type="button" id="cancelEditButton">
+                                    Cancelar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- Fim do Modal -->
+
             </div>
 
             <div id="cardsList">

@@ -10,6 +10,10 @@ require 'app/controllers/GameController.php';
 header('Content-Type: application/json');
 
 $method = $_SERVER['REQUEST_METHOD'];
+if ($method === 'POST' && isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'])) {
+    $method = strtoupper($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']);
+}
+
 $uri = $_SERVER['REQUEST_URI'];
 
 // ==> GET /api/cards <== \\ (Card/CardController)
@@ -48,8 +52,7 @@ elseif ($method === 'POST' && $uri === '/api/cards') {
         exit;
     }
 
-    $input = file_get_contents('php://input');
-    $data = json_decode($input, true);
+    $data = $_POST;
 
     if (empty($data['name_en']) || empty($data['game']) || empty($data['edition'])){
         http_response_code(400);
@@ -109,7 +112,6 @@ elseif ($method === 'POST' && $uri === '/api/cards') {
     }
 
     if (!$rarityExists) {
-
         http_response_code(400);
 
         echo json_encode([
@@ -119,14 +121,44 @@ elseif ($method === 'POST' && $uri === '/api/cards') {
         exit;
     }
 
+    // ==> Salvar Imagem
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = __DIR__ . '/public/images/cards/';
+
+        $fileName = basename($_FILES['image']['name']);
+        $uploadPath = $uploadDir . $fileName;
+
+        if (!move_uploaded_file($_FILES['image']['tmp_name'], $uploadPath)) {
+            http_response_code(500);
+            echo json_encode([
+                'message' => 'Erro ao salvar a imagem'
+            ]);
+            exit;
+        }
+
+        $data['image'] = '/public/images/cards/' . $fileName;
+    }
+
+    
     $cardController = new CardController($pdo);
-    $id = $cardController->create($data);
+    $result = $cardController->create($data);
+
+    // ==> Verificar duplicidade
+    if (is_array($result) && isset($result['error'])) {
+        http_response_code(409);
+
+        echo json_encode([
+            'message' => $result['message']
+        ]);
+
+        exit;
+    }
 
     http_response_code(201);
 
     echo json_encode([
         'message' => 'Carta cadastrada com sucesso!',
-        'id' => $id
+        'id' => $result
     ]);
 } 
 
@@ -145,15 +177,14 @@ elseif ($method === 'PUT' && preg_match('#^/api/cards/(\d+)$#', $uri, $matches))
     }
 
     $id = $matches[1];
-    $data = json_decode(file_get_contents('php://input'), true);
+    $data = $_POST;
 
-    if (!$data) {
+    if (empty($data)) {
         http_response_code(400);
 
-        echo json_encode ([
-            'message' => "Dados Inválidos"
+        echo json_encode([
+            'message' => 'Dados Inválidos'
         ]);
-
         exit;
     }
 
@@ -222,10 +253,43 @@ elseif ($method === 'PUT' && preg_match('#^/api/cards/(\d+)$#', $uri, $matches))
 
         exit;
     }
+
+    // ==> Salvar Imagem
+
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+
+        $uploadDir = __DIR__ . '/public/images/cards/';
+
+        $fileName = basename($_FILES['image']['name']);
+
+        $uploadPath = $uploadDir . $fileName;
+
+        if (!move_uploaded_file($_FILES['image']['tmp_name'], $uploadPath)) {
+            http_response_code(500);
+            echo json_encode([
+                'message' => 'Erro ao salvar a imagem'
+            ]);
+            exit;
+        }
+
+        $data['image'] = '/public/images/cards/' . $fileName;
+    }
     
     $cardController = new CardController($pdo);
     $updated = $cardController->update($id, $data);
 
+    // ==> Verificar duplicidade
+    if (is_array($updated) && isset($updated['error'])) {
+        http_response_code(409);
+
+        echo json_encode([
+            'message' => $updated['message']
+        ]);
+
+        exit;
+    }
+
+    // ==> Verificar se a carta existe
     if (!$updated){
         http_response_code(404);
 
@@ -311,6 +375,18 @@ elseif ($method === 'POST' && $uri === '/api/login') {
     echo json_encode([
         'message' => "Logado com Sucesso!",
     ]);
+}
+
+// ==> POST /api/logout <== \\ (User/AuthController)
+elseif ($method === 'POST' && $uri === '/api/logout') {
+    session_unset();
+    session_destroy();
+
+    echo json_encode([
+        'message' => 'Logout realizado com sucesso!'
+    ]);
+
+    exit;
 }
 
 // ==> POST /api/register <== (User/AuthController)

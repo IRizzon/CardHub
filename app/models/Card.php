@@ -33,17 +33,47 @@ class Card{
         return $this->pdo->lastInsertId();
     }
 
+    // ==> Verificar duplicidade
+    public function existsByNameAndEdition($name_en, $edition, $id = null){
+
+        $sql = "SELECT id
+                FROM cards
+                WHERE name_en = :name_en
+                AND edition = :edition";
+
+        if ($id !== null) {
+            $sql .= " AND id != :id";
+        }
+
+        $stmt = $this->pdo->prepare($sql);
+
+        $params = [
+            ':name_en' => $name_en,
+            ':edition' => $edition
+        ];
+
+        if ($id !== null) {
+            $params[':id'] = $id;
+        }
+
+        $stmt->execute($params);
+        return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
+    }
+
     // ==> CardEdit
     public function update($id, $data){
-        $stmt = $this->pdo->prepare('SELECT id FROM cards WHERE id = :id');
-
+        $stmt = $this->pdo->prepare('SELECT id, image FROM cards WHERE id = :id');
         $stmt->execute([
             ':id' => $id
         ]);
+        
+        $card = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (!$stmt->fetch()) {
+        if (!$card) {
             return false;
         }
+
+        $image = $data['image'] ?? $card['image'];
 
         $sql = "UPDATE cards SET 
             name_en = :name_en,
@@ -60,7 +90,7 @@ class Card{
             ':name_pt' => $data ['name_pt'] ?? null,
             ':game' => $data['game'],
             ':edition' => $data['edition'],
-            ':image' => $data['image'] ?? null,
+            ':image' => $image,
             ':rarity' => $data['rarity'] ?? null,
             ':id' => $id
         ]);

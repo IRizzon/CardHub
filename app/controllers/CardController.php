@@ -17,11 +17,41 @@ class CardController{
 
     // ==> CardInsert
     public function create($data){
+
+        // ==> Verificar duplicidade
+        $exists = $this->card->existsByNameAndEdition(
+            $data['name_en'],
+            $data['edition']
+        );
+
+        if ($exists) {
+            return [
+                'error' => true,
+                'message' => 'Esta carta já existe nesta edição.'
+            ];
+
+        }
+
         return $this->card->create($data);
     }
 
     // ==> CardEdit
     public function update($id, $data){
+
+        // ==> Verificar duplicidade
+        $exists = $this->card->existsByNameAndEdition(
+            $data['name_en'],
+            $data['edition'],
+            $id
+        );
+
+        if ($exists) {
+            return [
+                'error' => true,
+                'message' => 'Esta carta já existe nesta edição.'
+            ];
+        }
+
         return $this->card->update($id, $data);
     }
 
