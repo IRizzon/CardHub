@@ -17,3 +17,27 @@ CREATE TABLE cards (
     image VARCHAR(500),
     rarity VARCHAR(50)
 );
+
+INSERT INTO users (username, password)
+VALUES (
+    'CardUser',
+    '$2y$12$FRn50zxfwqMG9eMpzK0gvO.OWfego3lpQmGU1tyFey/5SiTaJRym6'
+) ON DUPLICATE KEY UPDATE
+    password = VALUES(password);
+
+INSERT INTO cards (
+    name_en,
+    name_pt,
+    game,
+    edition,
+    image,
+    rarity
+)
+VALUES (
+    'Forest',
+    'Floresta',
+    'mtg',
+    'hob',
+    '/public/images/cards/forest.jpg',
+    'C'
+);

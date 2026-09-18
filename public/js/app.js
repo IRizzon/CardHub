@@ -455,6 +455,13 @@ async function loadcards() {
     const cardsList = document.getElementById('cardsList');
     cardsList.innerHTML = '';
 
+    if (!response.ok) {
+        cardsList.innerHTML = `
+            <p>${data.message}</p>
+        `;
+        return;
+    }
+
     // ==> Carregar Raridades
     if (!selectedGame || !selectedEdition) {
         return;
