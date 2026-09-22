@@ -2,6 +2,6 @@
     $host = 'localhost';
     $db = 'cardhub';
     $user = 'cardhub_user';
-    $password = 'LMCH!2026!';
+    $password = 'DATABASE_PASSWORD';
 
     $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $password);

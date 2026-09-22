@@ -117,7 +117,7 @@ Ele cria:
 * Banco de dados `cardhub`
 * Tabela `users`
 * Tabela `cards`
-* Usuário inicial para testes
+* Usuário inicial do sistema para testes
 * Carta inicial para demonstração
 
 ### 1. Executar o SQL
@@ -137,16 +137,17 @@ A conexão com o banco está localizada em:
 ```text
 config/database.php
 ```
+Por segurança, a senha utilizada no ambiente de desenvolvimento não é disponibilizada no repositório.
 
-Configure as credenciais do seu ambiente MySQL:
+Antes de executar o projeto, configure as credenciais do seu ambiente MySQL no arquivo:
 
 ```php
-$host = 'localhost';
-$db = 'cardhub';
-$user = 'cardhub_user';
-$password = 'SUA_SENHA';
+$host = 'localhost'; 
+$db = 'cardhub'; 
+$user = 'cardhub_user'; 
+$password = 'DATABASE_PASSWORD';
 ```
-
+Substitua cardhub_user e DATABASE_PASSWORD pelas credenciais de um usuário do MySQL que possua permissão para acessar o banco cardhub.
 ---
 
 ## Executando o projeto
@@ -302,6 +303,9 @@ As imagens das cartas utilizadas pelo sistema ficam armazenadas em:
 ```text
 public/images/cards/
 ```
+O projeto inclui algumas imagens de cartas para demonstração e testes iniciais. 
+Essas imagens podem ser utilizadas no cadastro e na edição de cartas. 
+O sistema também permite o cadastro de novas cartas utilizando outras imagens fornecidas pelo usuário.
 
 As informações de edições e raridades ficam nos arquivos JSON dentro de:
 
@@ -310,3 +314,6 @@ data/games/
 ```
 
 O backend realiza validações para garantir que jogo, edição e raridade correspondam aos dados disponíveis para cada jogo.
+
+O banco de dados inicial é criado através do arquivo database/database.sql. 
+Após a execução do script, é necessário configurar as credenciais de acesso ao MySQL no arquivo config/database.php.

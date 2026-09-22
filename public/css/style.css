@@ -48,6 +48,113 @@ body {
     justify-self: end;
 }
 
+/* ==> Login/Register <== */
+
+#loginSection {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#loginSection img{
+    width: 350px;
+    margin-top: 30px;
+
+    object-fit: contain;
+}
+
+#loginTitle {
+    text-shadow: 0px 0px 2px #000000;
+
+    font-size: 45px;
+    font-weight: bolder;
+    text-align: center;
+}
+
+#loginForm{
+    width: 300px;
+    margin-top: 10px;
+    padding: 15px;
+    padding-top: 20px;
+
+    background-color: #535353;
+    border-radius: 6px;
+    box-shadow: 0px 0px 5px #000000;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+#loginForm > div{
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+#loginForm label{
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    text-shadow: 0px 0px 1px #ffffff;
+}
+
+#loginForm input{
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0px 0px 2px #ffffff;
+
+    font-size: 16px;
+    padding: 3px;
+    padding-left: 5px;
+}
+
+#loginButton{
+    border: none;
+    background-color: #535353;
+
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+#loginButton:hover{
+    color: #300075;
+    transform: scale(1.1);
+}
+
+#message{
+    margin: 5px;
+
+    color: #ff0000;
+    font-weight: bold;
+}
+
+#toggleRegisterButton{
+    border: none;
+    background-color: none;
+
+    font-size: 16px;
+    font-weight: bold;
+    text-shadow: 0px 0.5px 0.5px #000000;
+
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+#toggleRegisterButton:hover{
+    color: #330075;
+}
 
 /* ==> Game Selector <== */
 #gameSelector {
@@ -172,6 +279,12 @@ body {
     font-weight: bold;
 
     cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+#addCardButton:hover{
+    background-color: #000000;
+    transform: scale(1.1);
 }
 
 #addCardButton .addIcon {
@@ -433,6 +546,11 @@ body {
     font-weight: bold;
 
     cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+#closeEditButton:hover{
+    background-color: #ff000090;
 }
 
 #cardEditForm {
@@ -487,6 +605,12 @@ body {
 
     line-height: 1;
     cursor: pointer;
+
+    transition: all 0.3s ease
+}
+
+#imageUploadButton:hover{
+    background-color: #000000;
 }
 
 #cardFormFields {
@@ -515,7 +639,7 @@ body {
 
     font-weight: bold;
     font-size: 14px;
-text-transform: uppercase;
+    text-transform: uppercase;
 }
 
 #cardFormFields input,
@@ -554,7 +678,13 @@ text-transform: uppercase;
     font-weight: bold;
 
     cursor: pointer;
+    transition: all 0.5s ease;
 }
+
+#cardFormActions button:hover{
+    background-color: #000000;
+    transform: scale(1.1);
+} 
 
 /* ----------------------------------------------------*/
 /* ==> Responsividade - Tablet <== */
@@ -641,6 +771,15 @@ text-transform: uppercase;
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
         gap: 15px;
     }
+
+    #cardEditForm {
+        grid-template-columns: 1fr;
+    }
+
+    #editCardForm {
+        align-items: flex-start;
+        overflow-y: auto;
+    }
 }
 
 /* ----------------------------------------------------*/
@@ -719,5 +858,16 @@ text-transform: uppercase;
 
     .rarityBlock h3 {
         font-size: 20px;
+    }
+}
+
+/* ----------------------------------------------------*/
+/* ==> Ajuste na responsividade <== */
+@media (min-width: 500px) and (max-width: 768px) {
+
+    #cardImageUpload {
+        width: 260px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }

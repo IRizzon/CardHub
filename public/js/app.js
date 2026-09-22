@@ -12,6 +12,7 @@ const loginSection = document.getElementById('loginSection');
 
 const dashboardSection = document.getElementById('dashboardSection');
 const logoutButton = document.getElementById('logoutButton');
+const message = document.getElementById('message');
 
 const loginTitle = document.getElementById('loginTitle');
 const loginButton = document.getElementById('loginButton');
@@ -530,8 +531,6 @@ loginform.addEventListener('submit', async(e) => {
         data = result.data;
     }
 
-    const message = document.getElementById('message');
-
     message.textContent = data.message;
     if (response.ok) {
         if (registerMode) {
@@ -563,8 +562,15 @@ logoutButton.addEventListener('click', async() => {
         return;
     }
 
-    loginSection.style.display = 'block';
+    loginSection.style.display = 'flex';
     dashboardSection.style.display = 'none';
+
+    document.getElementById('message').innerHTML = `
+        <p>Usuário deslogado!</p>
+        `;
+
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
 });
 
 // ==> Register
