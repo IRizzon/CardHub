@@ -148,6 +148,7 @@ $user = 'cardhub_user';
 $password = 'DATABASE_PASSWORD';
 ```
 Substitua cardhub_user e DATABASE_PASSWORD pelas credenciais de um usuário do MySQL que possua permissão para acessar o banco cardhub.
+
 ---
 
 ## Executando o projeto
